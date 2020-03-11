@@ -64,3 +64,17 @@ body {
   background-color: #5b9300;
   color: #f4ebde;
 }
+
+@media (max-width: 768px) {
+  .dolar-price {
+    font-size: 70px;
+  }
+
+  .value-changed {
+    font-size: 15px;
+  }
+
+  .value-changed-container {
+    text-align: center;
+  }
+}
