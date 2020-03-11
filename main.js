@@ -1,5 +1,7 @@
 var oldPrice = 0;
 var lastValueChange = luxon.DateTime.local();
+var raiseValue = 0;
+
 function getDolarValue() {
   return fetch("https://economia.awesomeapi.com.br/all/usd-brl").then(function(
     response
@@ -16,6 +18,11 @@ function getDolarValue() {
 
 function changeDolar(dolar) {
   document.querySelector(".dolar-price").innerHTML = dolar;
+}
+
+function changeRaiseValue() {
+  raiseValue++;
+  document.querySelector(".dolar-raise-value").innerHTML = raiseValue;
 }
 
 function playCoin(sound) {
@@ -49,6 +56,7 @@ function checkDolarRaise(dolar) {
   if (dolar > oldPrice) {
     playCoin("coin-sound");
     resetTimer();
+    changeRaiseValue();
   }
 
   if (dolar < oldPrice) {
