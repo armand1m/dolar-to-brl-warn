@@ -36,5 +36,5 @@ steps:
     '--build',
     '$BUILD_ID',
     '--webhook',
-    'https://hooks.slack.com/services/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'
+    '$_SLACK_WEBHOOK'
   ]
