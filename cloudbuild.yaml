@@ -16,7 +16,7 @@ steps:
 - name: 'gcr.io/$PROJECT_ID/envsubst'
   env:
   - 'APP_NAME=doletinha-frontend'
-  - 'IMAGE_NAME=gcr.io/$PROJECT_ID/dolertinha-frontend:$BUILD_ID'
+  - 'IMAGE_NAME=gcr.io/$PROJECT_ID/doletinha-frontend:$BUILD_ID'
   - 'INGRESS_NAME=doletinha-frontend-ingress'
   - 'INGRESS_HOST=doletinha.armand1m.dev'
   args: ['kubernetes.yml']
