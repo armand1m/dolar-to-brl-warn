@@ -1,0 +1,40 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-t',
+    'gcr.io/$PROJECT_ID/doletinha-frontend:$BUILD_ID',
+    '.'
+  ]
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'push',
+    'gcr.io/$PROJECT_ID/doletinha-frontend:$BUILD_ID'
+  ]
+
+- name: 'gcr.io/$PROJECT_ID/envsubst'
+  env:
+  - 'APP_NAME=doletinha-frontend'
+  - 'IMAGE_NAME=gcr.io/$PROJECT_ID/dolertinha-frontend:$BUILD_ID'
+  - 'INGRESS_NAME=doletinha-frontend-ingress'
+  - 'INGRESS_HOST=doletinha.armand1m.dev'
+  args: ['kubernetes.yml']
+
+- name: 'gcr.io/cloud-builders/kubectl'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-c'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=main-cluster'
+  args: [
+    'apply',
+    '-f',
+    'kubernetes.yml'
+  ]
+
+- name: 'gcr.io/$PROJECT_ID/slackbot'
+  args: [
+    '--build',
+    '$BUILD_ID',
+    '--webhook',
+    'https://hooks.slack.com/services/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'
+  ]
